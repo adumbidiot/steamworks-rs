@@ -8,6 +8,9 @@ use std::sync::{ Arc, Weak };
 pub unsafe trait Callback {
     const ID: i32;
     const SIZE: i32;
+    
+    /// # Safety
+    /// raw must be a pointer to the correct datatype associated with the callback ID
     unsafe fn from_raw(raw: *mut c_void) -> Self;
 }
 

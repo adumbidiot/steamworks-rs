@@ -337,7 +337,7 @@ impl <Manager> UGC<Manager> {
             let gotten_count = sys::SteamAPI_ISteamUGC_GetSubscribedItems(self.ugc, data.as_mut_ptr(), count);
             debug_assert!(count == gotten_count);
             data.into_iter()
-                .map(|v| PublishedFileId(v))
+                .map(PublishedFileId)
                 .collect()
         }
     }
@@ -764,7 +764,7 @@ impl<'a> QueryResults<'a> {
             let tags = CStr::from_ptr(raw_details.m_rgchTags.as_ptr())
                 .to_string_lossy()
                 .split(',')
-                .map(|s| String::from(s))
+                .map(String::from)
                 .collect::<Vec<_>>();
 
             Some(QueryResult {

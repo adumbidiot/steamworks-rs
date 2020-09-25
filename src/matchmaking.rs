@@ -112,9 +112,7 @@ impl <Manager> Matchmaking<Manager> {
             register_call_result::<sys::LobbyEnter_t, _, _>(
                 &self.inner, api_call, CALLBACK_BASE_ID + 4,
                 move |v, io_error| {
-                    cb(if io_error {
-                        Err(())
-                    } else if v.m_EChatRoomEnterResponse != 1 {
+                    cb(if io_error || v.m_EChatRoomEnterResponse != 1 {
                         Err(())
                     } else {
                         Ok(LobbyId(v.m_ulSteamIDLobby))
